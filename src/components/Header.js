@@ -5,7 +5,7 @@ const Title = () => {
         <a href="/">
             <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.behance.net%2Fgallery%2F91801773%2FFood-Delivery-Logo&psig=AOvVaw3F55kZPOUtgffMuEqk5wgW&ust=1691343458133000&source=images&cd=vfe&opi=89978449&ved=0CA4QjRxqFwoTCMDnlMOHxoADFQAAAAAdAAAAABAR" 
             alt='logo'/>
-        </a>
+        </a>  
     </h1>
     )
 }
