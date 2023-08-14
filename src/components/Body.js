@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { restaurantList } from "./constants";
 import RestaurantCard from "./RestaurantCard";
+import Shimmer from "./Shimmer";
 
 function filterData(searchText,restaurants){
     const filterData = restaurants.filter((restaurant) => 
-        restaurant?.info?.name.includes(searchText)
+        restaurant?.info?.name?.toLowerCase()?.includes(searchText.toLowerCase())
     )
     return filterData;
 }
@@ -12,11 +13,12 @@ function filterData(searchText,restaurants){
 const Body = () => {
 
     const [searchText, setSearchText] = useState("");
-    const [restaurants, setRestautrant ] = useState(restaurantList);
+    const [allRestaurants, setAllRestaurants] = useState([]);
+    const [filteredRestaurants, setFilteredRestautrant ] = useState([]);
 
     useEffect(() => {
         getRestaurants()
-    },[restaurants])
+    },[])
 
     async function getRestaurants() {
         try {
@@ -35,26 +37,32 @@ const Body = () => {
             }
         }
         const resData = await checkJsonData(json);
+        
+        setAllRestaurants(resData);
+        setFilteredRestautrant(resData);
 
-        setRestautrant(resData)
         } catch(error) {
             console.log(error);
         }
+         
     }
 
-    return(
+    if(!allRestaurants) return null;
+    if( filteredRestaurants.length === 0) 
+    return(<h1>No Restaurant Found</h1>)
+    return (allRestaurants.length === 0)? <Shimmer /> : (
         <>
             <div className="search-container">
                 <input type="text" className="search-text" placeholder="Search" value={searchText}
                  onChange={(e) => setSearchText(e.target.value)}/>
                 <button className="search-btn" onClick={() => {
-                    const data = filterData(searchText,restaurants) 
-                    setRestautrant(data)}}>Search</button>
+                    const data = filterData(searchText,allRestaurants) 
+                    setFilteredRestautrant(data)}}>Search</button>
 
             </div>
             <div className='restaurant-list'>
                 {
-                    restaurants.map(restaurant => {
+                    filteredRestaurants.map(restaurant => {
                     return <RestaurantCard {...restaurant.info} key={restaurant?.info?.id} hello/>
                 })
             }
