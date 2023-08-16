@@ -29,3 +29,9 @@
     flex-wrap: wrap;
     justify-content: center;;
 }
+.shimmer-card{
+    width: 200px;
+    height: 200px;
+    background-color: rgb(182, 180, 180);
+    margin: 20px;
+}
