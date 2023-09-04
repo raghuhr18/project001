@@ -6,19 +6,17 @@ class About extends Component {
     
     constructor(props){
         super(props);
-        console.log("Parent - constructor");
+
     }
     
-    componentDidMount() {
-        console.log("Parent - Component Did mount");
-    }
+
     render(){
-        console.log("Parent - render");
+
         return(
             <>
                 <Outlet />
                 <Profile name=" one" />
-                <Profile name=" two"/>
+
             </>
         )
     }
