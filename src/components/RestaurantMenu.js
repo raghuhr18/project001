@@ -2,30 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IMG_CDN_URL } from "./constants";
 import Shimmer from "../components/Shimmer"
+import useRestaurant from "../utils/useRestaurrant";
 
 
 const RestaurantMenu = () => {
     const { resId } = useParams();
-    const [restaurant , setRestaurant] = useState(null);
+
+
+    const restaurant = useRestaurant(resId);
     const [addons, setAddons] = useState(null);
 
-
-    useEffect(() => {
-        getRestaurantInfo();
-    },[])
-
-    async function getRestaurantInfo() {
-        try {
-        const data = await fetch(`https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=30.2965552&lng=77.99659609999999&catalog_qa=undefined&submitAction=ENTER&restaurantId=${resId}`)
-        const json = await data.json();
-        setRestaurant(json?.data?.cards[0]?.card?.card?.info)
-
-        const categories = json?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card.categories[0]?.itemCards
-        setAddons(categories);
-        }catch(error) {
-            console.log("error fetching restaurant data")
-        }
-    }
 
     return (!restaurant) ? <Shimmer /> : (
         <div style={{display:"flex", flexDirection:"row"}}>
