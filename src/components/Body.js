@@ -45,10 +45,7 @@ const Body = () => {
          
     }
 
-     const isOnline = useOnline()
-     if(!isOnline) {
-        return <h1> 🔴Offline, Plese check your Internet Connection</h1>
-     }
+
      
     if(!allRestaurants) return null;
     // if( filteredRestaurants.length === 0) 
