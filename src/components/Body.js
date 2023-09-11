@@ -8,7 +8,7 @@ import useRestaurant from "../utils/useRestaurrant";
 import useOnline from "../utils/useOnline";
 
 
-const Body = () => {
+const Body = ({user}) => {
 
     const [searchText, setSearchText] = useState("");
     const [allRestaurants, setAllRestaurants] = useState([]);
@@ -65,7 +65,7 @@ const Body = () => {
                     filteredRestaurants.map((restaurant) => {
                     return (
                     <Link to= {"/restaurant/" + restaurant?.info?.id} key={restaurant?.info?.id}>
-                    <RestaurantCard {...restaurant.info}  />
+                    <RestaurantCard {...restaurant.info}  user1={user}/>
                     </Link>
                 )})
             }

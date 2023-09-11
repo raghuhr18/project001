@@ -56,7 +56,7 @@ const appRouter = createBrowserRouter([
             },
             {
                 path: "/",
-                element: <Body /> 
+                element: <Body user={{name:"namaste"}}/> 
             },
             {
                 path: "/restaurant/:resId",
