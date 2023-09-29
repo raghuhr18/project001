@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { IMG_CDN_URL } from "./constants";
 import Shimmer from "../components/Shimmer"
 import useRestaurant from "../utils/useRestaurrant";
+import RestaurantCategory from "./RestaurantCategory";
+
 
 
 const RestaurantMenu = () => {
@@ -10,32 +12,35 @@ const RestaurantMenu = () => {
 
 
     const restaurant = useRestaurant(resId);
-    const [addons, setAddons] = useState(null);
+
+    
+    // const { name, areaName, costForTwoMessage, cuisines ,cloudinaryImageId} =
+    // restaurant?.cards[0]?.card?.card?.info;
+    // const {name, areaName, costForTwoMessage, cuisines } = restaurant?.cards[0]?.card?.card?.info;
+    const categories = restaurant?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+        (c) =>
+          c?.card?.card?.["@type"] ===
+          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      );
 
 
     return (!restaurant) ? <Shimmer /> : (
         <div style={{display:"flex", flexDirection:"row"}}>
             <div>
-                <img src= { IMG_CDN_URL + restaurant?.cloudinaryImageId} />
-                <h1>{restaurant?.name}</h1>
-                <h1>{restaurant?.areaName}</h1>
-                <h1>{restaurant?.avgRating} stars</h1>
-                <h1>{restaurant?.totalRatingsString}</h1>
+                <img src= { IMG_CDN_URL + restaurant?.cards[0]?.card?.card?.info?.cloudinaryImageId} />
+                <h1>{restaurant?.cards[0]?.card?.card?.info?.name}</h1>
+                <h1>{restaurant?.cards[0]?.card?.card?.info?.areaName}</h1>
+                <h1>{restaurant?.cards[0]?.card?.card?.info?.costForTwoMessage}</h1>
+                <h1>{restaurant?.cards[0]?.card?.card?.info?.cuisines}</h1>
             </div>
             <div>
-                <h3>Recommends</h3>
-                {addons && addons.map((addon) => (
-                    <div key={addon.id} style={{display: "flex",alignItems: "center", justifyContent: "space-around",flexDirection: "row"}}>
-                        <div>
-                            <h5>{addon?.card?.info?.name}</h5>
-                            <p>{addon?.card?.info?.description}</p>
-                        </div>
-                        <div>
-                            <img src= {IMG_CDN_URL + addon?.card?.info?.imageId} style={{width:100, height:"auto", float:"right"}}/>
-                            <button>Add</button>
-                        </div>
-                    </div>
-                ))}
+            {categories.map((category, index) => (
+
+                <RestaurantCategory 
+                    key={index}
+                    categoryData= {category?.card?.card}
+                />
+            ))}
             </div>
         </div>
     )

@@ -2,6 +2,8 @@ export const IMG_CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/
 
 export const FETCH_MENU_URL = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=30.2965552&lng=77.99659609999999&catalog_qa=undefined&submitAction=ENTER&restaurantId="
 
+export const STATIC_IMG = "https://images.pexels.com/photos/1256875/pexels-photo-1256875.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
 export const restaurantList =  [
   {
     "info": {
